@@ -49,7 +49,7 @@ router.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
-router.get('/logout', (req, res) => { 
+router.get('/logout', (req, res) => {
     res.setHeader(
         "Set-Cookie",
         cookie.serialize("token", '', {
@@ -64,6 +64,27 @@ router.get('/logout', (req, res) => {
     return res.json({ message: 'Logout successful' })
 })
 
+router.get('/stock',
+    passport.authenticate('jwt', { session: false }),
+    (req, res, next) => {
+        return res.json({ message: "Stock" })
+    });
+
+router.get('/logout', (req, res) => {
+    res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("token", '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV !== "development",
+            maxAge: -1,
+            sameSite: "strict",
+            path: "/",
+        })
+    );
+    res.statusCode = 200
+    return res.json({ message: 'Logout successful'})
+})
+
 /* GET user profile. */
 router.get('/profile',
     passport.authenticate('jwt', { session: false }),
@@ -75,9 +96,9 @@ router.post('/register',
     async (req, res) => {
         try {
             const SALT_ROUND = 10
-            const { username, email, password } = req.body 
+            const { username, email, password } = req.body
             if (!username || !email || !password)
-                return res.json( {message: "Cannot register with empty string"})
+                return res.json({ message: "Cannot register with empty string" })
             if (db.checkExistingUser(username) !== db.NOT_FOUND)
                 return res.json({ message: "Duplicated user" })
 
@@ -90,7 +111,7 @@ router.post('/register',
         }
     })
 
-router.get('/alluser', (req,res) => res.json(db.users.users))
+router.get('/alluser', (req, res) => res.json(db.users.users))
 
 router.get('/', (req, res, next) => {
     res.send('Respond without authentication');
