@@ -124,23 +124,23 @@ router.route('/stocks')
     .post((req, res) => {
         let id = (stocks.list.length) ? stocks.list[stocks.list.length - 1].id + 1 : 1
         let name = req.body.name
-        let major = req.body.major
-        let gpa = req.body.gpa
-        stocks.list = [...stocks.list, { id, name, major, gpa }]
+        let type = req.body.type
+        let price = req.body.price
+        stocks.list = [...stocks.list, { id, name, type, price }]
         res.json(stocks);
     })
 
-router.route('/stocks/:std_id')
+router.route('/stocks/:st_id')
     .get((req, res) => {
-        let id = stocks.list.findIndex((item) => (item.id === +req.params.std_id))
+        let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
         res.json(stocks.list[id]);
     })
 
     .put((req, res) => {
-        let id = stocks.list.findIndex((item) => (item.id === +req.params.std_id))
+        let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
         stocks.list[id].name = req.body.name
-        stocks.list[id].major = req.body.major
-        stocks.list[id].gpa = req.body.gpa
+        stocks.list[id].type = req.body.type
+        stocks.list[id].price = req.body.price
         res.json(stocks)
     })
 

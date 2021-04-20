@@ -68,8 +68,8 @@ const admin = ({ token }) => {
                 return (
                     <div className={styles.listItem} key={index}>
                         {index + 1}
-                        <div><b>Name:</b> {item.name}</div>
-                        <div> <b>Type:</b> {item.type} </div>
+                        <div><b>Name:</b> {item.name}</div><br />
+                        <div> <b>Type:</b> {item.type} </div><br />
                         <div><b>Price:</b> {item.price}</div>
                         <div >
                             <button onClick={() => getStock(item.id)} >
@@ -97,14 +97,14 @@ const admin = ({ token }) => {
             <Navbar />
             <h1>Your Student</h1>
 
-            Selected Student: name:{stock.name}, type:{stock.type}, GPA:{stock.price}
-            <h2>Add Student</h2>
+            Selected Stock: name:{stock.name}, type:{stock.type}, price:{stock.price}
+            <h2>Add </h2>
             Name:<input type="text" onChange={(e) => setName(e.target.value)}></input>
-            Type:<input type="text" onChange={(e) => setMajor(e.target.value)}></input>
-            Price:<input type="number" onChange={(e) => setGpa(e.target.value)}></input>
+            Type:<input type="text" onChange={(e) => setType(e.target.value)}></input>
+            Price:<input type="number" onChange={(e) => setPrice(e.target.value)}></input>
             <br></br>
             <button onClick={() => addStock(name, type, price)}>Add Stock</button>
-            <h3>Our Student</h3>
+            <h3>Our </h3>
             <ul>{printStocks()}</ul>
         </div>
 

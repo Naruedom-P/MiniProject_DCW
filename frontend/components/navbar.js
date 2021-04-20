@@ -8,7 +8,7 @@ const Navbar = () => (
         <Link href="/profile"><a> Profile </a></Link> | 
         <Link href="/getConfig"><a> Config </a></Link> | 
         <Link href="/foo"><a>Foo</a></Link>|
-        <Link href="/managestudent"><a>Manage Student</a></Link>|
+        <Link href="/manage"><a>Manage</a></Link>|
         <Link href="/logout"><a> Logout </a></Link>
     </div>
 )
