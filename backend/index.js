@@ -28,10 +28,16 @@ router.post('/login', (req, res, next) => {
         console.log('Login: ', req.body, user, err, info)
         if (err) return next(err)
         if (user) {
+            console.log("Body:", req.body);
+            if (req.body.remember == true) {
+                exp = "7d";
+            } else exp = "1d";
             const token = jwt.sign(user, db.SECRET, {
-                expiresIn: '1d'
-            })
-            // req.cookie.token = token
+                expiresIn: exp,
+            });
+            var decoded = jwt.decode(token);
+            let time = new Date(decoded.exp * 1000);
+            console.log(new Date(decoded.exp * 1000));
             res.setHeader(
                 "Set-Cookie",
                 cookie.serialize("token", token, {
@@ -49,6 +55,7 @@ router.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
+
 router.get('/logout', (req, res) => {
     res.setHeader(
         "Set-Cookie",
@@ -62,27 +69,6 @@ router.get('/logout', (req, res) => {
     );
     res.statusCode = 200
     return res.json({ message: 'Logout successful' })
-})
-
-router.get('/stock',
-    passport.authenticate('jwt', { session: false }),
-    (req, res, next) => {
-        return res.json({ message: "Stock" })
-    });
-
-router.get('/logout', (req, res) => {
-    res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("token", '', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== "development",
-            maxAge: -1,
-            sameSite: "strict",
-            path: "/",
-        })
-    );
-    res.statusCode = 200
-    return res.json({ message: 'Logout successful'})
 })
 
 /* GET user profile. */
@@ -116,6 +102,53 @@ router.get('/alluser', (req, res) => res.json(db.users.users))
 router.get('/', (req, res, next) => {
     res.send('Respond without authentication');
 });
+router.get('/foo',
+    passport.authenticate('jwt', { session: false }),
+    (req, res, next) => {
+        res.send('foo')
+    });
+
+
+let stocks = {
+    list: [
+        {id:1,name:"glass",type:"Use",price:2.57},
+        {id:2,name:"bag",type:"Use",price:3.79}
+    ]
+
+}
+router.route('/stocks')
+    .get((req, res) => {
+        res.send(stocks);
+    })
+
+    .post((req, res) => {
+        let id = (stocks.list.length) ? stocks.list[stocks.list.length - 1].id + 1 : 1
+        let name = req.body.name
+        let major = req.body.major
+        let gpa = req.body.gpa
+        stocks.list = [...stocks.list, { id, name, major, gpa }]
+        res.json(stocks);
+    })
+
+router.route('/stocks/:std_id')
+    .get((req, res) => {
+        let id = stocks.list.findIndex((item) => (item.id === +req.params.std_id))
+        res.json(stocks.list[id]);
+    })
+
+    .put((req, res) => {
+        let id = stocks.list.findIndex((item) => (item.id === +req.params.std_id))
+        stocks.list[id].name = req.body.name
+        stocks.list[id].major = req.body.major
+        stocks.list[id].gpa = req.body.gpa
+        res.json(stocks)
+    })
+
+    .delete((req, res) => {
+        stocks.list = stocks.list.filter((item) => item.id !== +req.params.std_id)
+        res.json(stocks);
+    })
+
 
 // Error Handler
 app.use((err, req, res, next) => {
