@@ -1,4 +1,3 @@
-
 const express = require('express'),
     app = express(),
     passport = require('passport'),
@@ -22,19 +21,18 @@ router.use(cors({ origin: 'http://localhost:3000', credentials: true }))
 router.use(express.json())
 router.use(express.urlencoded({ extended: false }))
 
-
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
         console.log('Login: ', req.body, user, err, info)
         if (err) return next(err)
         if (user) {
-            console.log("Body:", req.body);
+            console.log("Body:",req.body);
             if (req.body.remember == true) {
-                exp = "7d";
+              exp = "7d";
             } else exp = "1d";
             const token = jwt.sign(user, db.SECRET, {
                 expiresIn: exp,
-            });
+              });
             var decoded = jwt.decode(token);
             let time = new Date(decoded.exp * 1000);
             console.log(new Date(decoded.exp * 1000));
@@ -54,7 +52,6 @@ router.post('/login', (req, res, next) => {
             return res.status(422).json(info)
     })(req, res, next)
 })
-
 
 router.get('/logout', (req, res) => {
     res.setHeader(
@@ -102,52 +99,54 @@ router.get('/alluser', (req, res) => res.json(db.users.users))
 router.get('/', (req, res, next) => {
     res.send('Respond without authentication');
 });
-router.get('/foo',
+
+let cars = {
+    list : [
+        {id:1,mobel:"BMW i3",electric:"Full-Electric",price:3730000},
+        {id:2,mobel:"BMW i8",electric:"Plug-in Hybrid",price:12999000}
+    ]
+    
+}
+router.route('/cars')
+ .get ((req,res)=>{
+     res.send(cars);
+ })
+
+ .post ((req,res)=>{
+    let id = (cars.list.length)?cars.list[cars.list.length-1].id+1:1
+     let mobel = req.body.mobel
+     let electric = req.body.electric
+     let price = req.body.price
+     cars.list = [...cars.list,{id,mobel,electric,price}]
+     res.json(cars);
+ })
+
+ router.route('/cars/:std_id')
+  .get((req,res)=>{
+    let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
+    res.json(cars.list[id]);
+  })
+
+  .put((req,res)=>{
+      let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
+      cars.list[id].mobel = req.body.mobel
+      cars.list[id].electric = req.body.electric
+      cars.list[id].price = req.body.price
+      res.json(cars)
+  })
+
+  .delete((req,res)=>{
+    cars.list = cars.list.filter((item) => item.id !== +req.params.std_id)
+      res.json(cars);
+  })
+
+
+router.get('/car',
     passport.authenticate('jwt', { session: false }),
     (req, res, next) => {
-        res.send('foo')
+        res.send('car')
     });
 
-
-let stocks = {
-    list: [
-        {id:1,name:"glass",type:"Use",price:2.57},
-        {id:2,name:"bag",type:"Use",price:3.79}
-    ]
-
-}
-router.route('/stocks')
-    .get((req, res) => {
-        res.send(stocks);
-    })
-
-    .post((req, res) => {
-        let id = (stocks.list.length) ? stocks.list[stocks.list.length - 1].id + 1 : 1
-        let name = req.body.name
-        let type = req.body.type
-        let price = req.body.price
-        stocks.list = [...stocks.list, { id, name, type, price }]
-        res.json(stocks);
-    })
-
-router.route('/stocks/:st_id')
-    .get((req, res) => {
-        let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
-        res.json(stocks.list[id]);
-    })
-
-    .put((req, res) => {
-        let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
-        stocks.list[id].name = req.body.name
-        stocks.list[id].type = req.body.type
-        stocks.list[id].price = req.body.price
-        res.json(stocks)
-    })
-
-    .delete((req, res) => {
-        stocks.list = stocks.list.filter((item) => item.id !== +req.params.std_id)
-        res.json(stocks);
-    })
 
 
 // Error Handler

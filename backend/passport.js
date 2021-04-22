@@ -8,7 +8,7 @@ const passportJWT = require("passport-jwt"),
     ExtractJWT = passportJWT.ExtractJwt,
     JWTStrategy = passportJWT.Strategy,
     LocalStrategy = require('passport-local').Strategy
-
+ 
 passport.use(
     new LocalStrategy({
         usernameField: 'username',
@@ -24,6 +24,8 @@ passport.use(
         }
         else
             return cb(null, false, { message: 'Incorrect user or password.' })
+
+
     }));
 
 passport.use(
@@ -39,8 +41,8 @@ passport.use(
                 if (index !== db.NOT_FOUND) {
                     // Strip password out
                     const { id, username, email } = users.users[index]
-                    //Return to caller via req.user
-                    return cb(null, { id, username, email });
+                                    //Return to caller via req.user
+                    return cb(null, { id, username, email }); 
                 } else {
                     return cb(null, false);
                 }

@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const PORT =90;
 
-let stocks = {
+let cars = {
     list : [
-        {id:1,name:"glass",type:"Use",price:2.57},
-        {id:2,name:"bag",type:"Use",price:3.79}
+        {id:1,mobel:"BMW i3",electric:"Full-Electric",price:3730000},
+        {id:2,mobel:"BMW i8",electric:"Plug-in Hybrid",price:12999000}
     ]
     
 }
@@ -17,37 +17,37 @@ app.use('/api',bodyParser.json(),router);
 app.use('/api',bodyParser.urlencoded({extended:false}),router);
 
 
-router.route('/stocks')
+router.route('/cars')
  .get ((req,res)=>{
-     res.json(stocks);
+     res.json(cars);
  })
 
  .post ((req,res)=>{
-    let id = (stocks.list.length)?stocks.list[stocks.list.length-1].id+1:1
-     let name = req.body.name
-     let type = req.body.type
+    let id = (cars.list.length)?cars.list[cars.list.length-1].id+1:1
+     let mobel = req.body.mobel
+     let electric = req.body.electric
      let price = req.body.price
-     stocks.list = [...stocks.list,{id,name,type,price}]
-     res.json(stocks);
+     cars.list = [...cars.list,{id,mobel,electric,price}]
+     res.json(cars);
  })
 
- router.route('/stocks/:st_id')
+ router.route('/cars/:std_id')
   .get((req,res)=>{
-    let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
-    res.json(stocks.list[id]);
+    let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
+    res.json(cars.list[id]);
   })
 
   .put((req,res)=>{
-      let id = stocks.list.findIndex((item) => (item.id === +req.params.st_id))
-      stocks.list[id].name = req.body.name
-      stocks.list[id].type = req.body.type
-      stocks.list[id].price = req.body.price
-      res.json(stocks)
+      let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
+      cars.list[id].mobel = req.body.mobel
+      cars.list[id].electric = req.body.electric
+      cars.list[id].price = req.body.price
+      res.json(cars)
   })
 
   .delete((req,res)=>{
-    stocks.list = stocks.list.filter((item) => item.id !== +req.params.st_id)
-      res.json(stocks);
+    cars.list = cars.list.filter((item) => item.id !== +req.params.std_id)
+      res.json(cars);
   })
 
 

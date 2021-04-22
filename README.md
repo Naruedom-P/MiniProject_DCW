@@ -13,4 +13,3 @@ cd frontend
 npm i
 npm run dev (In dev mode)
 ```
-"# MiniProject_DCW" 
