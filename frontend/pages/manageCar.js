@@ -72,14 +72,17 @@ const admin = ({ token }) => {
                         <b> mobel:</b> {item.mobel} <br />
                         <b>electric:</b> {item.electric} <br />
                         <b>price:</b> {item.price}
-                        <div >
-                            <button onClick={() => getCar(item.id)} >
+                        <div className={styles.buttonContainer}>
+                            <button className={`${styles.button} ${styles.btnGet}`}
+                                onClick={() => getCar(item.id)} >
                                 Get
                     </button>
-                            <button onClick={() => updateCar(item.id)} >
+                            <button className={`${styles.button} ${styles.btnUpdate}`}
+                                onClick={() => updateCar(item.id)} >
                                 Update
                     </button>
-                            <button onClick={() => deleteCar(item.id)}>
+                            <button className={`${styles.button} ${styles.btnDelete}`}
+                                onClick={() => deleteCar(item.id)}>
                                 Delete
                     </button>
                         </div>
@@ -94,19 +97,21 @@ const admin = ({ token }) => {
 
 
     return (
-        <div className={styles.container}>
-            <Navbar />
-            <h1>Your Car</h1>
+        <div>
+           <div><Navbar /></div> 
+            <div className={styles.container}>
+                <h1 className={styles.title}>Your Car</h1>
 
             Selected Car: mobel:{car.mobel}, electric:{car.electric}, price:{car.price}
-            <h2>Add Car</h2>
+                <h2>Add Car</h2>
             mobel:<input type="text" onChange={(e) => setMobel(e.target.value)}></input>
             electric:<input type="text" onChange={(e) => setElectric(e.target.value)}></input>
             price:<input type="number" onChange={(e) => setPrice(e.target.value)}></input>
-            <br></br>
-            <button onClick={() => addCar(mobel, electric, price)}>Add Car</button>
-            <h3>Our Car</h3>
-            <ul>{printCars()}</ul>
+                <br></br>
+                <button onClick={() => addCar(mobel, electric, price)}>Add Car</button>
+                <h1>Our Car</h1>
+                <ul className={styles.list}>{printCars()}</ul>
+            </div>
         </div>
 
     )
