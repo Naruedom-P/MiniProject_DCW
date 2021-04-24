@@ -1,6 +1,46 @@
+.headt{
+    padding: 30px;
+    text-align: center;
+    background: white;
+}
+.container{
+    box-sizing: border-box;
+    font-family: Arial;
+    padding: 10px;
+    background: #f1f1f1;
+}
+.header h1 {
+    font-size: 50px;
+  }
+  .fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+  border-radius: 4px;
+  }
 
+  .card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+  }
 
+  .rightcolumn {
+    float: left;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+  }
 
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+  }
+
+  
 .container {
     min-height: 100vh;
     padding: 0 0.5rem;
@@ -8,8 +48,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('img2.jpg');
-    background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
@@ -91,4 +129,20 @@
     margin: 0;
     line-height: 1.15;
     font-size: 4rem;
+}
+.tex{
+    column-count: 2;
+  column-gap: 40px;
+}
+.ordercar{
+    background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }

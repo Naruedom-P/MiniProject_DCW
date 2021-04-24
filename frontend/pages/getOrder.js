@@ -1,17 +1,20 @@
+import Layout from '../components/layout'
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
-import Navbar from '../components/navbar'
+import config from '../config/config'
 import styles from '../styles/Home.module.css'
+import Navbar from '../components/navbar'
+
+import { useState, useEffect } from 'react'
+
+
 import useSWR, { mutate } from 'swr';
 
 import withAuth from '../components/withAuth'
-import config from '../config/config'
+
 import axios from 'axios';
 const URL = `http://localhost/api/cars`
 
-
-const admin = ({ token }) => {
-
+const GetOrder = () => {
 
     const [cars, setCars] = useState({})
     const [car, setCar] = useState({});
@@ -95,7 +98,6 @@ const admin = ({ token }) => {
         }
     };
 
-
     return (
         <div>
            <div><Navbar /></div> 
@@ -117,13 +119,26 @@ const admin = ({ token }) => {
     )
 
 
-};
+    return (<Layout>
+        <Head>
+            <title>Order</title>
+        </Head>
+        <Navbar />
+        <div className={styles.container}>
+            
+            <h2> Get Configuration from ../config/config.js </h2>
+            <b>Config: </b> {JSON.stringify(config)}
+            <ul>
+                <li>npm run dev  (for development mode)</li>
+                <li>npm run build; npm run start  (for production mode)</li>
+            </ul>
+        </div>
 
+    </Layout>)
+}
 
-export default withAuth(admin)
+export default GetOrder
 
 export function getServerSideProps({ req, res }) {
     return { props: { token: req.cookies.token || "" } };
 }
-
-
