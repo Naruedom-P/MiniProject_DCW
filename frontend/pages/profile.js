@@ -35,8 +35,12 @@ const Profile1 = ({ token }) => {
             <Head>
                 <title>User profile</title>
             </Head>
+            <Navbar />
             <div className={styles.container}>
-                <Navbar />
+            <div className={styles.imgcontainer}>
+                    <img src="user.png" alt="Avatar" class="avatar"></img>
+                </div>
+                
                 <h1>User profile</h1>
                 <div>
                     <b>Token:</b> {token.substring(0, 15)}... <br /><br />

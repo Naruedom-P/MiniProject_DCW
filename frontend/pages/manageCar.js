@@ -36,7 +36,6 @@ const admin = ({ token }) => {
         }
     };
 
-
     const getCars = async () => {
         let car = await axios.get(URL)
         setCars(car.data)

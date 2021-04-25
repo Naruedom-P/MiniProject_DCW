@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import Layout from '../components/layout'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Register.module.css'
 import Navbar from '../components/navbar'
 import axios from 'axios'
 import config from '../config/config'
@@ -77,8 +77,12 @@ export default function Register({ token }) {
             <Head>
                 <title>Register</title>
             </Head>
+            <Navbar />
             <div className={styles.container}>
-                <Navbar />
+                <div className={styles.imgcontainer}>
+                    <img src="user.png" alt="Avatar" class="avatar"></img>
+                </div>
+
                 <h1>Register</h1>
                 <div><b>Token:</b> {token.substring(0, 15)}...
                 <button

@@ -77,8 +77,11 @@ export default function Login({ token }) {
             <Head>
                 <title>Login</title>
             </Head>
+            <div className={styles.body}>
             <div className={styles.container}>
-                
+             <div className={styles.imgcontainer}>
+                    <img src="user.png" alt="Avatar" class="avatar"></img>
+                </div>
                 <h1>Login</h1>
                 <div><b>Token:</b> {token.substring(0, 15)}...
                 <button onClick={copyText}> Copy token </button>
@@ -90,8 +93,9 @@ export default function Login({ token }) {
                 <br />
                 {loginForm()}
                 <div>
-                    <button onClick={login}>Login</button>
+                    <button onClick={login} className={styles.button} >Login</button>
                 </div>
+            </div>
             </div>
         </Layout>
     )

@@ -5,12 +5,8 @@ import styles from '../styles/Home.module.css'
 import Navbar from '../components/navbar'
 
 import { useState, useEffect } from 'react'
-
-
 import useSWR, { mutate } from 'swr';
-
 import withAuth from '../components/withAuth'
-
 import axios from 'axios';
 const URL = `http://localhost/api/cars`
 
@@ -18,6 +14,7 @@ const GetOrder = () => {
 
     const [cars, setCars] = useState({})
     const [car, setCar] = useState({});
+   
     const [mobel, setMobel] = useState('');
     const [electric, setElectric] = useState('');
     const [price, setPrice] = useState(0);
@@ -50,19 +47,19 @@ const GetOrder = () => {
         setCar(car.data)
     }
     const addCar = async (mobel, electric, price) => {
-        let car = await axios.post(URL, { mobel, electric, price })
+        let car = await axios.post(URL, {  mobel, electric, price })
         console.log(car.data);
         getCars();
 
     }
     const updateCar = async (id) => {
-        let car = await axios.put(`${URL}/${id}`, { mobel, electric, price })
+        let car = await axios.put(`${URL}/${id}`, {  mobel, electric, price })
         setCars(car.data)
         getCars();
     }
 
     const deleteCar = async (id) => {
-        let car = await axios.delete(`${URL}/${id}`, { mobel, electric, price })
+        let car = await axios.delete(`${URL}/${id}`, {  mobel, electric, price })
         getCars();
     }
 
@@ -72,7 +69,8 @@ const GetOrder = () => {
                 return (
                     <div className={styles.listItem} key={index}>
                         {index + 1}
-                        <b> mobel:</b> {item.mobel} <br />
+                        <b>Customer:</b> {item.users} <br />
+                        <b>mobel:</b> {item.mobel} <br />
                         <b>electric:</b> {item.electric} <br />
                         <b>price:</b> {item.price}
                         <div className={styles.buttonContainer}>
@@ -100,11 +98,13 @@ const GetOrder = () => {
 
     return (
         <div>
-           <div><Navbar /></div> 
+            <div><Navbar /></div>
             <div className={styles.container}>
                 <h1 className={styles.title}>Your Car</h1>
 
-            Selected Car: mobel:{car.mobel}, Electric:{car.electric}, Price:{car.price}
+            Selected Car:mobe55l:{car.mobel}, mobel:{car.mobel}, Electric:{car.electric}, Price:{car.price}
+
+
                 <h2>Add Car</h2>
             mobel:<input type="text" onChange={(e) => setMobel(e.target.value)}></input>
             electric:<input type="text" onChange={(e) => setElectric(e.target.value)}></input>
@@ -125,7 +125,7 @@ const GetOrder = () => {
         </Head>
         <Navbar />
         <div className={styles.container}>
-            
+
             <h2> Get Configuration from ../config/config.js </h2>
             <b>Config: </b> {JSON.stringify(config)}
             <ul>

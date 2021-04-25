@@ -148,6 +148,53 @@ router.get('/car',
     });
 
 
+    let customer = {
+        list : [
+            {id:1,name:"poom i3",email:"poom@gmail.com"},
+            {id:2,name:"dew i8",email:"dew@gmail.com"}
+        ]
+        
+    }
+    router.route('/customer')
+     .get ((req,res)=>{
+         res.send(customer);
+     })
+    
+     .post ((req,res)=>{
+        let id = (customer.list.length)?customer.list[customer.list.length-1].id+1:1
+         let name = req.body.name
+         let email = req.body.email
+
+         customer.list = [...customer.list,{id,name,email}]
+         res.json(customer);
+     })
+    
+     router.route('/customer/:cus_id')
+      .get((req,res)=>{
+        let id = customer.list.findIndex((item) => (item.id === +req.params.cus_id))
+        res.json(customer.list[id]);
+      })
+    
+      .put((req,res)=>{
+          let id = customer.list.findIndex((item) => (item.id === +req.params.cus_id))
+          customer.list[id].name = req.body.name
+          customer.list[id].email = req.body.email
+          res.json(customer)
+      })
+    
+      .delete((req,res)=>{
+        customer.list = customer.list.filter((item) => item.id !== +req.params.cus_id)
+          res.json(customer);
+      })
+    
+    
+    router.get('/customers',
+        passport.authenticate('jwt', { session: false }),
+        (req, res, next) => {
+            res.send('customers')
+        });
+
+
 
 // Error Handler
 app.use((err, req, res, next) => {
