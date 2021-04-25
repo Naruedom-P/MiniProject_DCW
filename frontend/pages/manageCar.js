@@ -12,7 +12,7 @@ const URL = `http://localhost/api/cars`
 
 const admin = ({ token }) => {
 
-
+    const [user, setUser] = useState({})
     const [cars, setCars] = useState({})
     const [car, setCar] = useState({});
     const [mobel, setMobel] = useState('');
@@ -68,6 +68,7 @@ const admin = ({ token }) => {
                 return (
                     <div className={styles.listItem} key={index}>
                         {index + 1}
+                        <b> Your car order:</b> {JSON.stringify(user.username)} <br />
                         <b> mobel:</b> {item.mobel} <br />
                         <b>electric:</b> {item.electric} <br />
                         <b>price:</b> {item.price}

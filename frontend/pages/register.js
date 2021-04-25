@@ -78,6 +78,7 @@ export default function Register({ token }) {
                 <title>Register</title>
             </Head>
             <Navbar />
+            <div className={styles.body}>
             <div className={styles.container}>
                 <div className={styles.imgcontainer}>
                     <img src="user.png" alt="Avatar" class="avatar"></img>
@@ -98,8 +99,9 @@ export default function Register({ token }) {
                 </div>
 
                 <div>
-                    <button onClick={register}>Register</button>
+                    <button onClick={register}  >Register</button>
                 </div>
+            </div>
             </div>
         </Layout>
     )

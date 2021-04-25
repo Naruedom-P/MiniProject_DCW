@@ -93,7 +93,7 @@ export default function Login({ token }) {
                 <br />
                 {loginForm()}
                 <div>
-                    <button onClick={login} className={styles.button} >Login</button>
+                    <button onClick={login} >Login</button>
                 </div>
             </div>
             </div>

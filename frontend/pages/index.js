@@ -89,12 +89,6 @@ export default function Home({ token }) {
             <p className={styles.tex}>Gran Coupé รุ่นแรกที่ออกแบบด้วยการขับเคลื่อนด้วยไฟฟ้า จะทำให้คุณเดินทางได้อย่างสะดวกสบายเหนือระดับอย่างเต็มที่ด้วยระยะทางไกลถึง 600 กิโลเมตร* รถสี่ประตูที่ให้กำลังแรงสูงสุดถึง 390 กิโลวัตต์ / 530 แรงม้า มีอัตราเร่งออกตัวจากหยุดนิ่งที่เหนือชั้นจึงขับขี่ได้ระยะทางไกล</p>
           </div>
 
-
-          <div className={styles.card}>
-            <h2>About Me</h2>
-            <div className={styles.fakeimg} styles="height:200px;">Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-          </div>
           <div className={styles.card}>
             <h2>Example of product image</h2>
             <div className={styles.pagination}>
@@ -112,7 +106,6 @@ export default function Home({ token }) {
             <h3>Responsive Form</h3>
             <p>Some text..</p>
           </div>
-
 
         </div>
         <h4> Selected Car: {car.name}:{car.major}:{car.gpa} </h4>

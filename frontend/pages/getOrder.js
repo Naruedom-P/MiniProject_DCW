@@ -10,11 +10,10 @@ import withAuth from '../components/withAuth'
 import axios from 'axios';
 const URL = `http://localhost/api/cars`
 
-const GetOrder = () => {
-
+const GetOrder = ({ token }) => {
+    const [user, setUser] = useState({})
     const [cars, setCars] = useState({})
     const [car, setCar] = useState({});
-   
     const [mobel, setMobel] = useState('');
     const [electric, setElectric] = useState('');
     const [price, setPrice] = useState(0);
@@ -69,7 +68,7 @@ const GetOrder = () => {
                 return (
                     <div className={styles.listItem} key={index}>
                         {index + 1}
-                        <b>Customer:</b> {item.users} <br />
+                        <b>Customer:</b> {JSON.stringify(user.username)} <br />
                         <b>mobel:</b> {item.mobel} <br />
                         <b>electric:</b> {item.electric} <br />
                         <b>price:</b> {item.price}
@@ -100,10 +99,9 @@ const GetOrder = () => {
         <div>
             <div><Navbar /></div>
             <div className={styles.container}>
-                <h1 className={styles.title}>Your Car</h1>
+                <h1 className={styles.title}>Your car order</h1>
 
             Selected Car:mobe55l:{car.mobel}, mobel:{car.mobel}, Electric:{car.electric}, Price:{car.price}
-
 
                 <h2>Add Car</h2>
             mobel:<input type="text" onChange={(e) => setMobel(e.target.value)}></input>
@@ -112,6 +110,8 @@ const GetOrder = () => {
                 <br></br>
                 <button onClick={() => addCar(mobel, electric, price)}>Add Car</button>
                 <h1>Our Car</h1>
+                <b>Customer: </b>  {JSON.stringify(user)}
+               
                 <ul className={styles.list}>{printCars()}</ul>
             </div>
         </div>

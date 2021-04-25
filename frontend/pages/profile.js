@@ -44,9 +44,9 @@ const Profile1 = ({ token }) => {
                 <h1>User profile</h1>
                 <div>
                     <b>Token:</b> {token.substring(0, 15)}... <br /><br />
-                    This route is protected by token, user is required to login first.
+                    
                     <br />
-                    Otherwise, it will be redirect to Login page
+                    
                     <br /><br />
                     {JSON.stringify(user)}
                 </div>
