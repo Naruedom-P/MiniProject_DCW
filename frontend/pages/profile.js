@@ -7,13 +7,21 @@ import axios from 'axios'
 import withAuth from '../components/withAuth'
 import config from '../config/config'
 
+const URL_INCOME = `http://localhost/api/income`
+
 const Profile1 = ({ token }) => {
 
     const [user, setUser] = useState({})
+    const [income, setIncome] = useState(0)
 
     useEffect(() => {
         profileUser()
     }, [])
+
+    const getIncome = async () => {
+        const result = await axios.get(URL_INCOME)
+        setIncome(result.data)
+    }
 
     const profileUser = async () => {
         try {
@@ -43,12 +51,12 @@ const Profile1 = ({ token }) => {
                 
                 <h1>User profile</h1>
                 <div>
-                    <b>Token:</b> {token.substring(0, 15)}... <br /><br />
-                    
+                    <b>Token:</b> {token.substring(0, 15)}... 
                     <br />
-                    
-                    <br /><br />
-                    {JSON.stringify(user)}
+                    <h1>Order information Customer purchase</h1>
+                    <h2>Customer:{JSON.stringify(user.username)}</h2> 
+                    <h2>Order quantity: {income}</h2>
+                   
                 </div>
             </div>
         </Layout>

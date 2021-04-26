@@ -74,6 +74,7 @@ export default function Login({ token }) {
     return (
         <Layout>
             <Navbar />
+            
             <Head>
                 <title>Login</title>
             </Head>
@@ -83,6 +84,7 @@ export default function Login({ token }) {
                     <img src="user.png" alt="Avatar" class="avatar"></img>
                 </div>
                 <h1>Login</h1>
+               
                 <div><b>Token:</b> {token.substring(0, 15)}...
                 <button onClick={copyText}> Copy token </button>
                 </div>

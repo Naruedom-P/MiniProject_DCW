@@ -8,6 +8,7 @@ const express = require('express'),
 const bcrypt = require('bcrypt')
 
 const db = require('./database.js')
+let income = 0
 let users = db.users
 
 require('./passport.js')
@@ -26,13 +27,13 @@ router.post('/login', (req, res, next) => {
         console.log('Login: ', req.body, user, err, info)
         if (err) return next(err)
         if (user) {
-            console.log("Body:",req.body);
+            console.log("Body:", req.body);
             if (req.body.remember == true) {
-              exp = "7d";
+                exp = "7d";
             } else exp = "1d";
             const token = jwt.sign(user, db.SECRET, {
                 expiresIn: exp,
-              });
+            });
             var decoded = jwt.decode(token);
             let time = new Date(decoded.exp * 1000);
             console.log(new Date(decoded.exp * 1000));
@@ -101,45 +102,46 @@ router.get('/', (req, res, next) => {
 });
 
 let cars = {
-    list : [
-        {id:1,mobel:"BMW i3",electric:"Full-Electric",price:3730000},
-        {id:2,mobel:"BMW i8",electric:"Plug-in Hybrid",price:12999000}
+    list: [
+        { id: 1, mobel: "BMW i3", electric: "Full-Electric", price: 3730005 },
+        { id: 2, mobel: "BMW i8", electric: "Plug-in Hybrid", price: 12999000 }
     ]
-    
+
 }
 router.route('/cars')
- .get ((req,res)=>{
-     res.send(cars);
- })
+    .get((req, res) => {
+        res.send(cars);
+    })
 
- .post ((req,res)=>{
-    let id = (cars.list.length)?cars.list[cars.list.length-1].id+1:1
-     let mobel = req.body.mobel
-     let electric = req.body.electric
-     let price = req.body.price
-     cars.list = [...cars.list,{id,mobel,electric,price}]
-     res.json(cars);
- })
+    .post((req, res) => {
+        let id = (cars.list.length) ? cars.list[cars.list.length - 1].id + 1 : 1
+        let mobel = req.body.mobel
+        let electric = req.body.electric
+        let price = req.body.price
+        cars.list = [...cars.list, { id, mobel, electric, price }]
+        res.json(cars);
+    })
 
- router.route('/cars/:std_id')
-  .get((req,res)=>{
-    let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
-    res.json(cars.list[id]);
-  })
+router.route('/cars/:cr_id')
+    .get((req, res) => {
+        let id = cars.list.findIndex((item) => (item.id === +req.params.cr_id))
+        res.json(cars.list[id]);
+    })
 
-  .put((req,res)=>{
-      let id = cars.list.findIndex((item) => (item.id === +req.params.std_id))
-      cars.list[id].mobel = req.body.mobel
-      cars.list[id].electric = req.body.electric
-      cars.list[id].price = req.body.price
-      res.json(cars)
-  })
+    .put((req, res) => {
+        let id = cars.list.findIndex((item) => (item.id === +req.params.cr_id))
+        cars.list[id].mobel = req.body.mobel
+        cars.list[id].electric = req.body.electric
+        cars.list[id].price = req.body.price
+        res.json(cars)
+    })
 
-  .delete((req,res)=>{
-    cars.list = cars.list.filter((item) => item.id !== +req.params.std_id)
-      res.json(cars);
-  })
-
+    .delete((req, res) => {
+        cars.list = cars.list.filter((item) => item.id !== +req.params.cr_id)
+        res.json(cars);
+    })
+router.route('/income')
+    .get((req, res) => res.json(income))
 
 router.get('/car',
     passport.authenticate('jwt', { session: false }),
@@ -148,51 +150,52 @@ router.get('/car',
     });
 
 
-    let customer = {
-        list : [
-            {id:1,name:"poom i3",email:"poom@gmail.com"},
-            {id:2,name:"dew i8",email:"dew@gmail.com"}
-        ]
-        
-    }
-    router.route('/customer')
-     .get ((req,res)=>{
-         res.send(customer);
-     })
-    
-     .post ((req,res)=>{
-        let id = (customer.list.length)?customer.list[customer.list.length-1].id+1:1
-         let name = req.body.name
-         let email = req.body.email
+let customer = {
+    list: [
+        { id: 1, name: "poom i3", email: "poom@gmail.com" },
+        { id: 2, name: "dew i8", email: "dew@gmail.com" }
+    ]
 
-         customer.list = [...customer.list,{id,name,email}]
-         res.json(customer);
-     })
-    
-     router.route('/customer/:cus_id')
-      .get((req,res)=>{
+}
+router.route('/customer')
+    .get((req, res) => {
+        res.send(customer);
+    })
+
+    .post((req, res) => {
+        let id = (customer.list.length) ? customer.list[customer.list.length - 1].id + 1 : 1
+        let name = req.body.name
+        let email = req.body.email
+
+        customer.list = [...customer.list, { id, name, email }]
+        res.json(customer);
+    })
+
+router.route('/customer/:cus_id')
+    .get((req, res) => {
         let id = customer.list.findIndex((item) => (item.id === +req.params.cus_id))
         res.json(customer.list[id]);
-      })
-    
-      .put((req,res)=>{
-          let id = customer.list.findIndex((item) => (item.id === +req.params.cus_id))
-          customer.list[id].name = req.body.name
-          customer.list[id].email = req.body.email
-          res.json(customer)
-      })
-    
-      .delete((req,res)=>{
+        income += Number(cars.list[id].id)
+    })
+
+    .put((req, res) => {
+        let id = customer.list.findIndex((item) => (item.id === +req.params.cus_id))
+        customer.list[id].name = req.body.name
+        customer.list[id].email = req.body.email
+        res.json(customer)
+    })
+
+    .delete((req, res) => {
         customer.list = customer.list.filter((item) => item.id !== +req.params.cus_id)
-          res.json(customer);
-      })
-    
-    
-    router.get('/customers',
-        passport.authenticate('jwt', { session: false }),
-        (req, res, next) => {
-            res.send('customers')
-        });
+        res.json(customer);
+    })
+
+
+router.get('/customers',
+    passport.authenticate('jwt', { session: false }),
+    (req, res, next) => {
+        res.send('customers')
+    });
 
 
 
