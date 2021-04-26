@@ -106,7 +106,8 @@ export default function Home({ token }) {
         </div>
 
         <div className={styles.footer}>
-          <h2>Footer</h2>
+          <h2>Footer</h2>.
+          <h4> อ่างอิงข้อมูลจาก : https://www.bmw.co.th/th/home.html</h4>
         </div>
       </div>
     </Layout>

@@ -46,19 +46,19 @@ const GetOrder = ({ token }) => {
         setCar(car.data)
     }
     const addCar = async (mobel, electric, price) => {
-        let car = await axios.post(URL, {  mobel, electric, price })
+        let car = await axios.post(URL, { mobel, electric, price })
         console.log(car.data);
         getCars();
 
     }
     const updateCar = async (id) => {
-        let car = await axios.put(`${URL}/${id}`, {  mobel, electric, price })
+        let car = await axios.put(`${URL}/${id}`, { mobel, electric, price })
         setCars(car.data)
         getCars();
     }
 
     const deleteCar = async (id) => {
-        let car = await axios.delete(`${URL}/${id}`, {  mobel, electric, price })
+        let car = await axios.delete(`${URL}/${id}`, { mobel, electric, price })
         getCars();
     }
 
@@ -101,17 +101,17 @@ const GetOrder = ({ token }) => {
             <div className={styles.container}>
                 <h1 className={styles.title}>Your car order</h1>
 
-            Selected Car:mobe55l:{car.mobel}, mobel:{car.mobel}, Electric:{car.electric}, Price:{car.price}
+            Selected Car: mobel:{car.mobel}, Electric:{car.electric}, Price:{car.price}
 
-                <h2>Add Car</h2>
+                <h1>Add Car</h1>
             mobel:<input type="text" onChange={(e) => setMobel(e.target.value)}></input>
             electric:<input type="text" onChange={(e) => setElectric(e.target.value)}></input>
             price:<input type="number" onChange={(e) => setPrice(e.target.value)}></input>
                 <br></br>
                 <button onClick={() => addCar(mobel, electric, price)}>Add Car</button>
                 <h1>Our Car</h1>
-                <b>Customer: </b>  {JSON.stringify(user)}
-               
+                <h2>Customer:{JSON.stringify(user.username)}</h2>
+                <h2>Email:{JSON.stringify(user.email)}</h2>
                 <ul className={styles.list}>{printCars()}</ul>
             </div>
         </div>
