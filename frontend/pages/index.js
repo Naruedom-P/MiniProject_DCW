@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
 import Navbar from '../components/navbar'
+import Or from '../components/or'
 import styles from '../styles/Homepage.module.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
@@ -73,7 +74,7 @@ export default function Home({ token }) {
             <h1>THE iX</h1>
             <h3>THE FIRST ALL ELECTRIC iX.</h3>
             <div className={styles.fakeimg} > <img src="cix.jpg" alt="ciX" width="100%" height="auto"></img>
-              <button className={styles.ordercar} >Order a car</button>
+              <Or />
             </div>
             <p>THE FIRST BMW iX: PIONEER OF A NEW AGE.</p>
             <p className={styles.tex}>BMW iX ถือกำเนิดจากวิสัยทัศน์ ออกแบบเพื่อขับเคลื่อนด้วยไฟฟ้า ด้วยเทคโนโลยี BMW eDrive ที่เปี่ยมประสิทธิภาพและระบบขับเคลื่อนด้วยไฟฟ้าสี่ล้อ รถยนต์ BMW iX จึงขับขี่ได้ระยะทางไกลและมีอัตราเร่งออกตัวจากหยุดนิ่งที่เหนือชั้น รูปลักษณ์ที่ล้ำสมัยสะกดได้ทุกสายตาด้วยสไตล์การออกแบบที่เน้นความขึงขัง ห้องโดยสารสุดหรูหราด้วยวัสดุพรีเมียมคุณภาพสูงที่อัดแน่นไปด้วยเทคโนโลยีล้ำยุค และที่นั่งกว้างขวางสำหรับห้าคน จะทำให้คุณเดินทางได้อย่างสะดวกสบายเหนือระดับ สัมผัสกับมุมผ่อนคลายที่พาคุณเดินทางไปได้ทุกที่ พร้อมทั้งระบบปฏิบัติการอัจฉริยะ BMW Operating System 8</p>
@@ -83,7 +84,7 @@ export default function Home({ token }) {
             <h1>THE i4</h1>
             <h3>THE FIRST-EVER PURELY ELECTRIC GRAN COUPE</h3>
             <div className={styles.fakeimg} > <img src="ci4.jpg" alt="ci4" width="100%" height="auto"></img>
-              <button className={styles.ordercar} >Order a car</button>
+              <Or />
             </div>
             <p>Some text..</p>
             <p className={styles.tex}>Gran Coupé รุ่นแรกที่ออกแบบด้วยการขับเคลื่อนด้วยไฟฟ้า จะทำให้คุณเดินทางได้อย่างสะดวกสบายเหนือระดับอย่างเต็มที่ด้วยระยะทางไกลถึง 600 กิโลเมตร* รถสี่ประตูที่ให้กำลังแรงสูงสุดถึง 390 กิโลวัตต์ / 530 แรงม้า มีอัตราเร่งออกตัวจากหยุดนิ่งที่เหนือชั้นจึงขับขี่ได้ระยะทางไกล</p>
@@ -102,18 +103,7 @@ export default function Home({ token }) {
             </div>
           </div>
 
-          <div className={styles.card}>
-            <h3>Responsive Form</h3>
-            <p>Some text..</p>
-          </div>
-
         </div>
-        <h4> Selected Car: {car.name}:{car.major}:{car.gpa} </h4>
-        <br></br>
-        <div className={styles.list}>
-          {printCars()}
-        </div>
-
 
         <div className={styles.footer}>
           <h2>Footer</h2>
