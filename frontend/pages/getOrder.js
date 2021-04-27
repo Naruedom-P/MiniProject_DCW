@@ -3,10 +3,7 @@ import Head from 'next/head'
 import config from '../config/config'
 import styles from '../styles/Home.module.css'
 import Navbar from '../components/navbar'
-
 import { useState, useEffect } from 'react'
-import useSWR, { mutate } from 'swr';
-import withAuth from '../components/withAuth'
 import axios from 'axios';
 const URL = `http://localhost/api/cars`
 
@@ -17,29 +14,23 @@ const GetOrder = ({ token }) => {
     const [mobel, setMobel] = useState('');
     const [electric, setElectric] = useState('');
     const [price, setPrice] = useState(0);
-
     useEffect(() => {
         getCars();
         profileUser();
     }, []);
     const profileUser = async () => {
         try {
-
             const users = await axios.get(`${config.URL}/profile`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
             setUser(users.data);
         } catch (e) {
             console.log(e);
         }
     };
-
-
     const getCars = async () => {
         let car = await axios.get(URL)
         setCars(car.data)
-
     }
     const getCar = async (id) => {
         let car = await axios.get(`${URL}/${id}`);
@@ -49,7 +40,6 @@ const GetOrder = ({ token }) => {
         let car = await axios.post(URL, { mobel, electric, price })
         console.log(car.data);
         getCars();
-
     }
     const updateCar = async (id) => {
         let car = await axios.put(`${URL}/${id}`, { mobel, electric, price })

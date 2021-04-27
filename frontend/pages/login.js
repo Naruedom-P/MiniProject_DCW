@@ -7,12 +7,10 @@ import axios from 'axios'
 import config from '../config/config'
 
 export default function Login({ token }) {
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [status, setStatus] = useState('')
     const [remember, setRemember] = useState(false)
-
     const login = async (req, res) => {
         try {
             let result = await axios.post(`${config.URL}/login`,
@@ -28,7 +26,6 @@ export default function Login({ token }) {
             setStatus(JSON.stringify(e.response).substring(0, 80) + "...")
         }
     }
-
     const loginForm = () => (
         <div className={styles.gridContainer}>
             <div>
@@ -50,7 +47,6 @@ export default function Login({ token }) {
                     placeholder="password"
                     onChange={(e) => setPassword(e.target.value)} />
             </div>
-
             <div >
                 <input
                     id="remember"
@@ -58,7 +54,6 @@ export default function Login({ token }) {
                     type="checkbox"
                     onClick={rememberStatus}
                 />
-
             </div>
             <div ><label>Remember Me</label></div>
         </div>
@@ -66,15 +61,12 @@ export default function Login({ token }) {
     const rememberStatus = async () =>{
         setRemember(true)
     }
-
     const copyText = () => {
         navigator.clipboard.writeText(token)
     }
-
     return (
         <Layout>
             <Navbar />
-            
             <Head>
                 <title>Login</title>
             </Head>
